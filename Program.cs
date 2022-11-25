@@ -13,7 +13,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IMailSender, MailSender.MailSender>();
 builder.Services.AddSingleton<IBGMailSender,MailSenderBackgroundService>();
-builder.Services.AddHostedService((sp)=>sp.GetService(typeof(IBGMailSender)) as MailSenderBackgroundService);
+builder.Services.AddHostedService((sp)=>sp.GetService(typeof(IBGMailSender)) as 
+MailSenderBackgroundService);
 builder.Services.AddSingleton<DBContext>();
 builder.Services.AddSingleton<CodeVerify>();
 builder.Services.AddTransient<IUserAuthService,UserAuthService>();

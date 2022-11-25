@@ -47,7 +47,9 @@ namespace SCADAServer.Routers.UserRouter.Services
             int randomCode = codeVerify.VerifyCodeFor(token,TypeCode.REG);
             codeVerify.DeleteVerifyCodeAfter(randomCode, token, 59990, TypeCode.REG);
             mailContent.Subject = "Verify your email address";
-            mailContent.Body = $@"Almost done, @{mailContent.DisplayName}! To complete your sign up, we just need to verify your email address by using the code below:
+            mailContent.Body = $@"Almost done, @{mailContent.DisplayName}!
+             To complete your sign up, we just need to verify your
+              email address by using the code below:
 {randomCode}
 Please use it within 1 minutes.";
             await mailSender.SendMail(mailContent);
@@ -58,7 +60,9 @@ Please use it within 1 minutes.";
             int randomCode = codeVerify.VerifyCodeFor(token, TypeCode.RST);
             codeVerify.DeleteVerifyCodeAfter(randomCode, token, 179990, TypeCode.RST);
             mailContent.Subject = "Reset your password";
-            mailContent.Body = $@"Someone attempted to reset the password for your account,  If that person was you, using the code below to complete your action:
+            mailContent.Body = $@"Someone attempted to reset
+             the password for your account,  If that person was you,
+              using the code below to complete your action:
 {randomCode}
 Please use it within 3 minutes.";
             await mailSender.SendMail(mailContent);

@@ -5,13 +5,17 @@ namespace SCADAServer
 {
     public static class MiddlewareExtensions
     {
-        public static IApplicationBuilder MapAppWS(this IApplicationBuilder builder, string path, AppWSConnection appWSConnection)
+        public static IApplicationBuilder MapAppWS(this IApplicationBuilder builder, 
+        tring path, AppWSConnection appWSConnection)
         {
-            return builder.Map(path, (builder) => builder.UseMiddleware<AppWSMiddleware>(appWSConnection));
+            return builder.Map(path, (builder) => builder.UseMiddleware<AppWSMiddleware>
+            (appWSConnection));
         }
-        public static IApplicationBuilder MapEspWS(this IApplicationBuilder builder, string path, EspWSConnection espWSConnection)
+        public static IApplicationBuilder MapEspWS(this IApplicationBuilder builder, 
+        string path, EspWSConnection espWSConnection)
         {
-            return builder.Map(path, (builder) => builder.UseMiddleware<EspWSMiddelware>(espWSConnection));
+            return builder.Map(path, (builder) => builder.UseMiddleware<EspWSMiddelware>
+            (espWSConnection));
         }
     }
 }

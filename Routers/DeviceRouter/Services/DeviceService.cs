@@ -8,7 +8,8 @@ namespace SCADAServer.Routers.DeviceRouter.Services
         Task<bool> RenameDevice(string deviceKey,string deviceName);
         Task<bool> RemoveDevice(string deviceKey);
         Task<bool> AddDeviceConfig(string deviceKey,DeviceConfig deviceConfig);
-        Task<bool> UpdateDeviceConfig(string deviceKey,string currentTypeVibration, DeviceConfig deviceConfig);
+        Task<bool> UpdateDeviceConfig(string deviceKey,string currentTypeVibration, 
+        DeviceConfig deviceConfig);
         Task<bool> ChangeRecordState(string deviceKey, string typeVibration, bool isRecord);
         IAsyncEnumerable<DeviceConfig> GetDeviceConfig(string deviceKey);
         Task<bool> RemoveDeviceConfig(string deviceKey, string typeVibration);
@@ -42,11 +43,14 @@ namespace SCADAServer.Routers.DeviceRouter.Services
             return await dbContext.Device.AddDeviceConfig(deviceKey, deviceConfig);
         }
 
-        public async Task<bool> UpdateDeviceConfig(string deviceKey, string currentTypeVibration, DeviceConfig deviceConfig)
+        public async Task<bool> UpdateDeviceConfig(string deviceKey,
+         string currentTypeVibration, DeviceConfig deviceConfig)
         {
-            return await dbContext.Device.UpdateDeviceConfig(deviceKey,currentTypeVibration, deviceConfig);
+            return await dbContext.Device.UpdateDeviceConfig(
+                deviceKey,currentTypeVibration, deviceConfig);
         }
-        public async Task<bool> ChangeRecordState(string deviceKey, string typeVibration,bool isRecord)
+        public async Task<bool> ChangeRecordState(string deviceKey, 
+        string typeVibration,bool isRecord)
         {
             return await dbContext.Device.ChangeRecordState(deviceKey, typeVibration,isRecord);
         }

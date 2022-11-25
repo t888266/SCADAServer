@@ -40,7 +40,8 @@ namespace SCADAServer.Routers.UserRouter.Services
                     }
             }
         }
-        public void DeleteVerifyCodeAfter(int rdCode,string token,int miliseconds, TypeCode typeCode)
+        public void DeleteVerifyCodeAfter(int rdCode,string token,
+        int miliseconds, TypeCode typeCode)
         {
             Task.Run(async () =>
             {

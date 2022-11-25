@@ -11,7 +11,10 @@ namespace SCADAServer.Routers.DeviceRouter
         }
         public override void AddRouter(WebApplication app)
         {
-            app.MapPost($"/{BaseRouteUrl}/addDevice", async (/*[FromForm]string userKey,*/ [FromServices] IDeviceService deviceService,IDeviceAuthService deviceAuthService, HttpContext context) =>
+            app.MapPost($"/{BaseRouteUrl}/addDevice", async (
+                /*[FromForm]string userKey,*/ [FromServices]
+                 IDeviceService deviceService,IDeviceAuthService 
+                 deviceAuthService, HttpContext context) =>
             {
                 string userKey = context.Request.Form["userKey"].ToString();
                 DeviceModel model = new DeviceModel();
@@ -27,7 +30,8 @@ namespace SCADAServer.Routers.DeviceRouter
                 }
                 return Results.BadRequest();
             });
-            app.MapDelete($"/{BaseRouteUrl}/removeDevice", async ([FromQuery] string deviceKey, [FromServices] IDeviceService deviceService) =>
+            app.MapDelete($"/{BaseRouteUrl}/removeDevice", async 
+            ([FromQuery] string deviceKey, [FromServices] IDeviceService deviceService) =>
             {
                 if (await deviceService.RemoveDevice(deviceKey))
                 {
@@ -35,12 +39,16 @@ namespace SCADAServer.Routers.DeviceRouter
                 }
                 return Results.NotFound();
             });
-            app.MapGet($"/{BaseRouteUrl}/getListDevice", (/*[FromForm]string userKey,*/ [FromServices] IDeviceService deviceService, HttpContext context) =>
+            app.MapGet($"/{BaseRouteUrl}/getListDevice", 
+            (/*[FromForm]string userKey,*/ [FromServices]
+            IDeviceService deviceService, HttpContext context) =>
             {
                 string userKey = context.Request.Form["userKey"].ToString();
                 return  deviceService.GetListDevice(userKey);
             });
-            app.MapPost($"/{BaseRouteUrl}/addDeviceConfig/{{deviceKey}}", async ([FromRoute]string deviceKey, [FromBody]DeviceConfig config, [FromServices] IDeviceService deviceService) =>
+            app.MapPost($"/{BaseRouteUrl}/addDeviceConfig/{{deviceKey}}",
+             async ([FromRoute]string deviceKey, 
+             [FromBody]DeviceConfig config, [FromServices] IDeviceService deviceService) =>
             {
                 if(await deviceService.AddDeviceConfig(deviceKey, config))
                 {
@@ -48,11 +56,15 @@ namespace SCADAServer.Routers.DeviceRouter
                 }
                 return Results.BadRequest();
             });
-            app.MapGet($"/{BaseRouteUrl}/getDeviceConfig/{{deviceKey}}", async ([FromRoute] string deviceKey, [FromServices] IDeviceService deviceService) =>
+            app.MapGet($"/{BaseRouteUrl}/getDeviceConfig/{{deviceKey}}",
+             async ([FromRoute] string deviceKey, [FromServices]
+              IDeviceService deviceService) =>
             {
                 return deviceService.GetDeviceConfig(deviceKey);
             });
-            app.MapDelete($"/{BaseRouteUrl}/removeDeviceConfig", async ([FromQuery] string deviceKey, string typeVibration, [FromServices] IDeviceService deviceService) =>
+            app.MapDelete($"/{BaseRouteUrl}/removeDeviceConfig",
+             async ([FromQuery] string deviceKey,
+              string typeVibration, [FromServices] IDeviceService deviceService) =>
             {
                 if (await deviceService.RemoveDeviceConfig(deviceKey, typeVibration))
                 {
@@ -60,7 +72,11 @@ namespace SCADAServer.Routers.DeviceRouter
                 }
                 return Results.NotFound();
             });
-            app.MapPut($"/{BaseRouteUrl}/updateDeviceConfig/{{deviceKey}}/{{currentTypeVibration}}", async ([FromRoute] string deviceKey,string currentTypeVibration, [FromBody] DeviceConfig config, [FromServices] IDeviceService deviceService) =>
+            app.MapPut($"/{BaseRouteUrl
+            }/updateDeviceConfig/{{deviceKey}}/{{currentTypeVibration}}", 
+            async ([FromRoute] string deviceKey,
+            string currentTypeVibration, [FromBody] DeviceConfig config, 
+            [FromServices] IDeviceService deviceService) =>
             {
                 if (await deviceService.UpdateDeviceConfig(deviceKey,currentTypeVibration,config))
                 {
@@ -68,18 +84,25 @@ namespace SCADAServer.Routers.DeviceRouter
                 }
                 return Results.BadRequest();
             });
-            app.MapPut($"/{BaseRouteUrl}/changeRecordState/{{deviceKey}}/{{currentTypeVibration}}", async ([FromRoute] string deviceKey, string currentTypeVibration, [FromServices] IDeviceService deviceService, HttpContext context) =>
+            app.MapPut($"/{BaseRouteUrl
+            }/changeRecordState/{{deviceKey}}/{{currentTypeVibration}}", 
+            async ([FromRoute] string deviceKey,
+             string currentTypeVibration, [FromServices]
+              IDeviceService deviceService, HttpContext context) =>
             {
                 if(bool.TryParse(context.Request.Form["isRecord"].ToString(),out bool isRecord))
                 {
-                    if (await deviceService.ChangeRecordState(deviceKey, currentTypeVibration, isRecord))
+                    if (await deviceService.ChangeRecordState(deviceKey,
+                     currentTypeVibration, isRecord))
                     {
                         return Results.Ok();
                     }
                 }
                 return Results.BadRequest();
             });
-            app.MapPut($"/{BaseRouteUrl}/renameDevice/{{deviceKey}}", async ([FromRoute] string deviceKey, IDeviceService deviceService, HttpContext context) =>
+            app.MapPut($"/{BaseRouteUrl}/renameDevice/{{deviceKey}}", 
+            async ([FromRoute] string deviceKey, 
+            IDeviceService deviceService, HttpContext context) =>
             {
                 string deviceName = context.Request.Form["deviceName"].ToString();
                 if (await deviceService.RenameDevice(deviceKey, deviceName)) 

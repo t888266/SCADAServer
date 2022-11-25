@@ -20,7 +20,9 @@ namespace SCADAServer.Routers.UserRouter
             });
             //Send verification code to the email address for sign up action
             //Form binding not working for NET 6.
-            app.MapPost($"/{BaseRouteUrl}/getRegCode", async (/*[FromForm]string token, string username, string email,*/ [FromServices] IUserAuthService userAuthService, HttpContext context) =>
+            app.MapPost($"/{BaseRouteUrl}/getRegCode", async
+             (/*[FromForm]string token, string username, string email,*/
+              [FromServices] IUserAuthService userAuthService, HttpContext context) =>
             {
                 string email = context.Request.Form["email"].ToString();
                 if (await userAuthService.IsMailExists(email))
@@ -36,7 +38,9 @@ namespace SCADAServer.Routers.UserRouter
                 return Results.Ok();
             });
             //Sign up with the code have been recieved from mail
-            app.MapPost($"/{BaseRouteUrl}/signUp/{{code}}", async ([FromRoute] int code, [FromBody] UserModel user, IUserService userService, IUserAuthService userAuthService) =>
+            app.MapPost($"/{BaseRouteUrl}/signUp/{{code}}", async 
+            ([FromRoute] int code, [FromBody] UserModel user, 
+            IUserService userService, IUserAuthService userAuthService) =>
             {
                 //User key is the token....
                 if (userAuthService.IsCodeValid(code, user.UserKey, TypeCode.REG))
@@ -53,7 +57,9 @@ namespace SCADAServer.Routers.UserRouter
                 return Results.BadRequest();
             });
             //Change part of data of account
-            app.MapPut($"/{BaseRouteUrl}/update/{{type}}", async ([FromRoute] string type, /*[FromForm]string data, string userKey,*/ IUserService userService, HttpContext context) =>
+            app.MapPut($"/{BaseRouteUrl}/update/{{type}}", async 
+            ([FromRoute] string type, /*[FromForm]string data, 
+            string userKey,*/ IUserService userService, HttpContext context) =>
             {
                 string data = context.Request.Form["data"].ToString();
                 string userKey = context.Request.Form["userKey"].ToString();
@@ -74,12 +80,15 @@ namespace SCADAServer.Routers.UserRouter
                 }
                 return Results.Ok();
             });
-            app.MapPost($"/{BaseRouteUrl}/signIn", async ([FromBody] UserLoginModel userLogin, IUserService userService) =>
+            app.MapPost($"/{BaseRouteUrl}/signIn", async ([FromBody]
+             UserLoginModel userLogin, IUserService userService) =>
             {
                 UserModel user = await userService.SignIn(userLogin);
                 return user != null ? Results.Ok(user) : Results.NotFound();
             });
-            app.MapPost($"/{BaseRouteUrl}/getRstCode", async (/*[FromForm] string token, string email,*/ IUserAuthService userAuthService, HttpContext context) =>
+            app.MapPost($"/{BaseRouteUrl}/getRstCode", 
+            async (/*[FromForm] string token, string email,*/
+             IUserAuthService userAuthService, HttpContext context) =>
             {
                 string email = context.Request.Form["email"].ToString();
                 if (!await userAuthService.IsMailExists(email))
@@ -92,7 +101,9 @@ namespace SCADAServer.Routers.UserRouter
                 await userAuthService.SendRstVerifyCode(token, content);
                 return Results.Ok();
             });
-            app.MapPost($"/{BaseRouteUrl}/verifyRstCode/{{code}}", async ([FromRoute] int code, /*[FromForm] string token, string email,*/ IUserService userService, IUserAuthService userAuthService, HttpContext context) =>
+            app.MapPost($"/{BaseRouteUrl}/verifyRstCode/{{code}}",
+             async ([FromRoute] int code, /*[FromForm] string token, string email,*/ 
+             IUserService userService, IUserAuthService userAuthService, HttpContext context) =>
             {
                 string token = context.Request.Form["token"].ToString();
                 string email = context.Request.Form["email"].ToString();

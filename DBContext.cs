@@ -28,8 +28,10 @@ namespace SCADAServer
                     string procedure = "[IsEmailExists]";
                     var para = new DynamicParameters();
                     para.Add("@email", email);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction: 
+                    ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure, para, 
+                    commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
@@ -41,9 +43,12 @@ namespace SCADAServer
                     string procedure = "[IsUserKeyExists]";
                     var para = new DynamicParameters();
                     para.Add("@userKey", userKey);
-                    para.Add("@state",dbType:DbType.Int32,direction:ParameterDirection.ReturnValue);
-                    Console.WriteLine(userKey+" "+await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure));
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state",dbType:DbType.Int32,direction:
+                    ParameterDirection.ReturnValue);
+                    Console.WriteLine(userKey+" "+await connection.ExecuteScalarAsync<int>
+                    (procedure, para, commandType: CommandType.StoredProcedure));
+                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: 
+                    CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
@@ -56,10 +61,12 @@ namespace SCADAServer
                     var para = new DynamicParameters();
                     para.Add("@email", userLogin.Email);
                     para.Add("@password", userLogin.Password);
-                    UserDataModel userData = await connection.QueryFirstOrDefaultAsync<UserDataModel>(procedure, para, commandType: CommandType.StoredProcedure);
+                    UserDataModel userData = await connection.QueryFirstOrDefaultAsync
+                    <UserDataModel>(procedure, para, commandType: CommandType.StoredProcedure);
                     if (userData != null)
                     {
-                        return new UserModel(userLogin.Email, userLogin.Password, userData.Username, userData.UserKey);
+                        return new UserModel(userLogin.Email, userLogin.Password,
+                         userData.Username, userData.UserKey);
                     }
                     return null;
                 }
@@ -72,7 +79,8 @@ namespace SCADAServer
                     string procedure = "[GetUserKeyByMail]";
                     var para = new DynamicParameters();
                     para.Add("@email", email);
-                    return await connection.QueryFirstOrDefaultAsync<string>(procedure, para, commandType: CommandType.StoredProcedure);
+                    return await connection.QueryFirstOrDefaultAsync<string>(procedure, 
+                    para, commandType: CommandType.StoredProcedure);
                 }
             }
             public async Task<bool> AddUser(UserModel userModel)
@@ -86,8 +94,10 @@ namespace SCADAServer
                     para.Add("@email", userModel.Email);
                     para.Add("@password", userModel.Password);
                     para.Add("@userKey", userModel.UserKey);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction:
+                     ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure, para, 
+                    commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
@@ -101,8 +111,10 @@ namespace SCADAServer
                     var para = new DynamicParameters();
                     para.Add("@email", email);
                     para.Add("@userKey", userKey);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction:
+                     ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure, para,
+                     commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
@@ -115,7 +127,8 @@ namespace SCADAServer
                     var para = new DynamicParameters();
                     para.Add("@password", password);
                     para.Add("@userKey", userKey);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    await connection.ExecuteScalarAsync<int>(procedure, para,
+                     commandType: CommandType.StoredProcedure);
                 }
             }
             public async Task UpdateUsername(string username, string userKey)
@@ -127,7 +140,8 @@ namespace SCADAServer
                     var para = new DynamicParameters();
                     para.Add("@username", username);
                     para.Add("@userKey", userKey);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    await connection.ExecuteScalarAsync<int>(procedure, para, 
+                    commandType: CommandType.StoredProcedure);
                 }
             }
             #endregion
@@ -148,8 +162,10 @@ namespace SCADAServer
                     string procedure = "[IsDeviceKeyExists]";
                     var para = new DynamicParameters();
                     para.Add("@deviceKey", deviceKey);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction: 
+                    ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure, 
+                    para, commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
@@ -164,8 +180,10 @@ namespace SCADAServer
                     para.Add("@deviceID", deviceModel.DeviceID);
                     para.Add("@deviceKey", deviceModel.DeviceKey);
                     para.Add("@deviceName", deviceModel.DeviceName);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction:
+                     ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure, 
+                    para, commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
@@ -178,8 +196,10 @@ namespace SCADAServer
                     var para = new DynamicParameters();
                     para.Add("@deviceKey", deviceKey);
                     para.Add("@deviceName", deviceName);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction:
+                     ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure, 
+                    para, commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
@@ -191,8 +211,10 @@ namespace SCADAServer
                     string procedure = "[RemoveDevice]";
                     var para = new DynamicParameters();
                     para.Add("@deviceKey", deviceKey);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction: 
+                    ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure,
+                     para, commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
@@ -204,7 +226,9 @@ namespace SCADAServer
                     string procedure = "[GetListDevice]";
                     var para = new DynamicParameters();
                     para.Add("@userKey", userKey);
-                    foreach(DeviceModel model in await connection.QueryAsync<DeviceModel>(procedure, para, commandType: CommandType.StoredProcedure))
+                    foreach(DeviceModel model in await
+                     connection.QueryAsync<DeviceModel>(procedure, para,
+                      commandType: CommandType.StoredProcedure))
                     {
                         yield return model;
                     }
@@ -218,7 +242,9 @@ namespace SCADAServer
                     string procedure = "[GetDeviceConfig]";
                     var para = new DynamicParameters();
                     para.Add("@deviceKey", deviceKey);
-                    foreach (DeviceConfig config in await connection.QueryAsync<DeviceConfig>(procedure, para, commandType: CommandType.StoredProcedure))
+                    foreach (DeviceConfig config in await 
+                    connection.QueryAsync<DeviceConfig>
+                    (procedure, para, commandType: CommandType.StoredProcedure))
                     {
                         yield return config;
                     }
@@ -236,12 +262,15 @@ namespace SCADAServer
                     para.Add("@isRecord", deviceConfig.IsRecord);
                     para.Add("@warnValue", deviceConfig.WarnValue);
                     para.Add("@stopValue", deviceConfig.StopValue);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction:
+                     ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure,
+                     para, commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
-            public async Task<bool> UpdateDeviceConfig(string deviceKey,string currentTypeVibration, DeviceConfig deviceConfig)
+            public async Task<bool> UpdateDeviceConfig(string deviceKey,
+            string currentTypeVibration, DeviceConfig deviceConfig)
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -254,12 +283,15 @@ namespace SCADAServer
                     para.Add("@isRecord", deviceConfig.IsRecord);
                     para.Add("@warnValue", deviceConfig.WarnValue);
                     para.Add("@stopValue", deviceConfig.StopValue);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction: 
+                    ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure,
+                     para, commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
-            public async Task<bool> ChangeRecordState(string deviceKey, string typeVibration,bool isRecord)
+            public async Task<bool> ChangeRecordState(string deviceKey, 
+            string typeVibration,bool isRecord)
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -269,8 +301,10 @@ namespace SCADAServer
                     para.Add("@deviceKey", deviceKey);
                     para.Add("@typeVibration", typeVibration);
                     para.Add("@isRecord", (isRecord)?1:0);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction:
+                     ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure, 
+                    para, commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
@@ -283,12 +317,15 @@ namespace SCADAServer
                     var para = new DynamicParameters();
                     para.Add("@deviceKey", deviceKey);
                     para.Add("@typeVibration", typeVibration);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction: 
+                    ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure,
+                     para, commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
-            public async IAsyncEnumerable<DeviceSavedData> GetDeviceData(string deviceKey, string typeVibration)
+            public async IAsyncEnumerable<DeviceSavedData> 
+            GetDeviceData(string deviceKey, string typeVibration)
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -297,13 +334,15 @@ namespace SCADAServer
                     var para = new DynamicParameters();
                     para.Add("@deviceKey", deviceKey);
                     para.Add("@typeVibration", typeVibration);
-                    foreach (DeviceSavedData data in await connection.QueryAsync<DeviceSavedData>(procedure, para, commandType: CommandType.StoredProcedure))
+                    foreach (DeviceSavedData data in await connection.QueryAsync
+                    <DeviceSavedData>(procedure, para, commandType: CommandType.StoredProcedure))
                     {
                         yield return data;
                     }
                 }
             }
-            public async Task<bool> SaveDeviceData(string deviceKey, string typeVibration, DeviceSavedData deviceData)
+            public async Task<bool> SaveDeviceData(string deviceKey, 
+            string typeVibration, DeviceSavedData deviceData)
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
@@ -317,8 +356,10 @@ namespace SCADAServer
                     para.Add("@xAcc", deviceData.XAcc);
                     para.Add("@yAcc", deviceData.YAcc);
                     para.Add("@zAcc", deviceData.ZAcc);
-                    para.Add("@state", dbType: DbType.Int32, direction: ParameterDirection.ReturnValue);
-                    await connection.ExecuteScalarAsync<int>(procedure, para, commandType: CommandType.StoredProcedure);
+                    para.Add("@state", dbType: DbType.Int32, direction: 
+                    ParameterDirection.ReturnValue);
+                    await connection.ExecuteScalarAsync<int>(procedure,
+                     para, commandType: CommandType.StoredProcedure);
                     return para.Get<int>("@state") == 1;
                 }
             }
