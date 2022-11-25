@@ -12,11 +12,13 @@ namespace SCADAServer.EspVsApp.Connection
             EspWSConnectionManger = wsConnectionManager as IEspWSConnectionManger;
             AppWSGetter = wsConnectionManager as IAppWSGetter;
         }
-        public virtual void OnConnected((string deviceKey, string typeVibration) id, WebSocket socket)
+        public virtual void OnConnected((string deviceKey, string typeVibration) id,
+         WebSocket socket)
         {
             EspWSConnectionManger.AddSocket(id, socket);
         }
-        public virtual async Task OnDisconnected((string deviceKey, string typeVibration) id, WebSocket socket)
+        public virtual async Task OnDisconnected((string deviceKey, string typeVibration) id,
+         WebSocket socket)
         {
             await EspWSConnectionManger.RemoveSocket(id, socket);
         }
@@ -27,7 +29,8 @@ namespace SCADAServer.EspVsApp.Connection
             await socket.SendAsync(new ArraySegment<byte>(Encoding.ASCII.GetBytes(message)),
                 WebSocketMessageType.Text, true, CancellationToken.None);
         }
-        public async Task OnReceiveMessage((string deviceKey, string typeVibration) id, WebSocket socket, WebSocketReceiveResult result, byte[] buf)
+        public async Task OnReceiveMessage((string deviceKey, string typeVibration) id, 
+        WebSocket socket, WebSocketReceiveResult result, byte[] buf)
         {
             IEnumerable<WebSocket> wss = AppWSGetter.GetByID(id);
             if(wss.Count()>0)
