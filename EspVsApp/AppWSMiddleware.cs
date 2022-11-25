@@ -9,7 +9,8 @@ namespace SCADAServer.EspVsApp
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class AppWSMiddleware : WSMiddleware<AppWSConnection>
     {
-        public AppWSMiddleware(RequestDelegate next, AppWSConnection wSConnection) : base(next, wSConnection)
+        public AppWSMiddleware(RequestDelegate next, AppWSConnection wSConnection) :
+         base(next, wSConnection)
         {
         }
 
@@ -23,7 +24,8 @@ namespace SCADAServer.EspVsApp
             string deviceKey = context.Request.Query["deviceKey"];
             string typeVibration = context.Request.Query["typeVibration"];
             string token = context.Request.Query["token"];
-            if (!String.IsNullOrEmpty(deviceKey) && !String.IsNullOrEmpty(typeVibration)&& !String.IsNullOrEmpty(token))
+            if (!String.IsNullOrEmpty(deviceKey) && !String.IsNullOrEmpty(typeVibration)&& 
+            !String.IsNullOrEmpty(token))
             {
                 var ID = (deviceKey: deviceKey, typeVibration: typeVibration, token: token);
                 WSConnection.OnConnected(ID, socket);
@@ -32,7 +34,8 @@ namespace SCADAServer.EspVsApp
                     if (result.MessageType == WebSocketMessageType.Text)
                     {
                         Console.WriteLine(token);
-                        await WSConnection.OnReceiveMessage((deviceKey:deviceKey,typeVibration:typeVibration), socket, result, buf);
+                        await WSConnection.OnReceiveMessage((deviceKey:deviceKey,
+                        typeVibration:typeVibration), socket, result, buf);
                         return;
                     }
                     else if (result.MessageType == WebSocketMessageType.Close)

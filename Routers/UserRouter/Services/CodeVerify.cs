@@ -71,7 +71,8 @@ namespace SCADAServer.Routers.UserRouter.Services
                         {
                             if (tmpToken.Equals(token))
                             {
-                                rstCodes.TryRemove(new KeyValuePair<int, string>(code, tmpToken));
+                                rstCodes.TryRemove(new KeyValuePair<int, string>(code, 
+                                tmpToken));
                                 return true;
                             }
                         }
@@ -83,7 +84,8 @@ namespace SCADAServer.Routers.UserRouter.Services
                         {
                             if (tmpToken.Equals(token))
                             {
-                                regCodes.TryRemove(new KeyValuePair<int, string>(code, tmpToken));
+                                regCodes.TryRemove(new KeyValuePair<int, string>(code, 
+                                tmpToken));
                                 return true;
                             }
                         }

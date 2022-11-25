@@ -8,7 +8,8 @@ namespace SCADAServer.EspVsApp
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
     public class EspWSMiddelware:WSMiddleware<EspWSConnection>
     {
-        public EspWSMiddelware(RequestDelegate next, EspWSConnection wSConnection) : base(next, wSConnection)
+        public EspWSMiddelware(RequestDelegate next, EspWSConnection wSConnection) : 
+        base(next, wSConnection)
         {
         }
 

@@ -15,7 +15,8 @@ namespace SCADAServer.EspVsApp.Connection
             EspWSGetter = wsConnectionManager as IEspWSGetter;
             AppWSGetter = wsConnectionManager as IAppWSGetter;
         }
-        public virtual async void OnConnected((string deviceKey,string typeVibration,string token) id, WebSocket socket)
+        public virtual async void OnConnected((string deviceKey,string typeVibration,
+        string token) id, WebSocket socket)
         {
             AppWSConnectionManger.AddSocket(id, socket);
             var roomID = (deviceKey: id.deviceKey, typeVibration: id.typeVibration);
@@ -28,7 +29,8 @@ namespace SCADAServer.EspVsApp.Connection
                 });
             }
         }
-        public virtual async Task OnDisconnected((string deviceKey,string typeVibration,string token) id, WebSocket socket)
+        public virtual async Task OnDisconnected((string deviceKey,string
+         typeVibration,string token) id, WebSocket socket)
         {
             await AppWSConnectionManger.RemoveSocket(id, socket);
         }
@@ -39,7 +41,8 @@ namespace SCADAServer.EspVsApp.Connection
             await socket.SendAsync(new ArraySegment<byte>(Encoding.ASCII.GetBytes(message)),
                 WebSocketMessageType.Text, true, CancellationToken.None);
         }
-        public async Task OnReceiveMessage((string deviceKey, string typeVibration) id, WebSocket socket, WebSocketReceiveResult result, byte[] buf)
+        public async Task OnReceiveMessage((string deviceKey, string typeVibration) 
+        id, WebSocket socket, WebSocketReceiveResult result, byte[] buf)
         {
             WebSocket espWS = EspWSGetter.GetByID(id);
             if (espWS != null)
@@ -51,7 +54,8 @@ namespace SCADAServer.EspVsApp.Connection
                 {
                     if(TypeMessageHelper.GetTypeMessage(mess)==TypeMessage.Command)
                     {
-                        await Parallel.ForEachAsync(AppWSGetter.GetByIDExcept(id, socket), async (ws, token) =>
+                        await Parallel.ForEachAsync(AppWSGetter.GetByIDExcept(id,
+                         socket), async (ws, token) =>
                         {
                             await SendMessageAsync(ws, mess);
                         });

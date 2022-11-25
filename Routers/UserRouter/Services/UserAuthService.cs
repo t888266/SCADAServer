@@ -17,7 +17,8 @@ namespace SCADAServer.Routers.UserRouter.Services
         DBContext dBContext;
         CodeVerify codeVerify;
         IBGMailSender mailSender;
-        public UserAuthService(DBContext dBContext, CodeVerify codeVerify,IBGMailSender mailSender)
+        public UserAuthService(DBContext dBContext, CodeVerify codeVerify,
+        IBGMailSender mailSender)
         {
             this.dBContext = dBContext;
             this.codeVerify = codeVerify;

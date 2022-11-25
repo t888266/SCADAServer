@@ -4,8 +4,10 @@ namespace SCADAServer.EspVsApp
 {
     public interface IAppWSConnectionManger
     {
-        void AddSocket((string deviceKey, string typeVibration, string token) id, WebSocket socket);
-        Task RemoveSocket((string deviceKey, string typeVibration, string token) id, WebSocket socket);
+        void AddSocket((string deviceKey, string typeVibration, string token) id,
+         WebSocket socket);
+        Task RemoveSocket((string deviceKey, string typeVibration, string token) id,
+         WebSocket socket);
     }
     public interface IEspWSConnectionManger
     {
@@ -16,7 +18,8 @@ namespace SCADAServer.EspVsApp
     {
         IEnumerable<WebSocket> GetByID((string deviceKey, string typeVibration) id);
         IEnumerable<WebSocket> GetAll();
-        public IEnumerable<WebSocket> GetByIDExcept((string deviceKey, string typeVibration) id,WebSocket ws);
+        public IEnumerable<WebSocket> GetByIDExcept((string deviceKey, string 
+        typeVibration) id,WebSocket ws);
     }
     public interface IEspWSGetter
     {

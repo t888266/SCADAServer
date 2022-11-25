@@ -13,7 +13,8 @@ namespace SCADAServer.EspVsApp
             WSConnection = wSConnection;
         }
         public abstract Task InvokeAsync(HttpContext context);
-        protected async Task Receive(WebSocket socket, Action<WebSocketReceiveResult, byte[]> handleMessage, Action handleException)
+        protected async Task Receive(WebSocket socket, Action<WebSocketReceiveResult, 
+        byte[]> handleMessage, Action handleException)
         {
             var buffer = new byte[1024 * 4];
 
@@ -21,7 +22,8 @@ namespace SCADAServer.EspVsApp
             {
                 try
                 {
-                    var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                    var result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer),
+                     CancellationToken.None);
                     handleMessage.Invoke(result, buffer);
                 }
                 catch
